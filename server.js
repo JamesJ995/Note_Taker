@@ -37,6 +37,17 @@ app.get("/api/notes", (req, res) => {
   });
 });
 
+app.post("/api/notes", (req, res) => {
+  newNote = req.body;
+  newNote.id = uuidv4();
+  let notes = fs.readFileSync("public/db/db.json");
+  notes = JSON.parse(notes);
+  notes.push(newNote);
+  fs.writeFile("public/db/db.json", JSON.stringify(notes), function (err) {
+    if (err) throw err;
+  });
+  res.json(notes);
+});
 
 //======================================================================
 // Exporess event handler
