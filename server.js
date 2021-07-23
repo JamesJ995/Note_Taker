@@ -37,10 +37,6 @@ app.get("/api/notes", (req, res) => {
   });
 });
 
-app.post("/api/notes", (req, res) => {
-  newNote = req.body;
-  res.json(newNote);
-});
 
 //======================================================================
 // Exporess event handler
