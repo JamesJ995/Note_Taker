@@ -24,20 +24,20 @@ app.get("/api/notes", (req, res) =>
 
 //POST API - adds requested note to the notes database
 app.post("/api/notes", (req, res) => {
-  const reqNote = req.body;
+  let reqNote = req.body;
   reqNote.id = uuidv4();
   let currentNotes = JSON.parse(fs.readFileSync("./Develop/db/db.json", "utf8"));
   currentNotes.push(reqNote);
   fs.writeFileSync("./Develop/db/db.json", JSON.stringify(currentNotes));
-  res.json(currentNotes);
+  return console.log("Added new note!");
 });
 
 //HTML Routes
 app.get('/notes', (req, res) =>
-  res.sendFile(path.join(__dirname, "./Develop/public/notes.html"))
+  res.sendFile(path.join(__dirname, "./Develop/notes.html"))
 );
 app.get('/*', (req, res) =>
-  res.sendFile(path.join(__dirname, "./Develop/public/index.html"))
+  res.sendFile(path.join(__dirname, "./Develop/index.html"))
 );
 
 app.use((req, res) => {
