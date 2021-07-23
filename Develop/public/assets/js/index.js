@@ -3,16 +3,6 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
-const express = require('express');
-const path = require('path');
-
-// Sets up the Express App
-const app = express();
-const PORT = 3000;
-
-// Sets up middleware to handle data parsing
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
@@ -34,9 +24,6 @@ const hide = (elem) => {
 
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
-
-app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'notes.html')));
-app.get('/*', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 const getNotes = () =>
   fetch('/api/notes', {
