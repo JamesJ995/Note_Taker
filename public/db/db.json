@@ -1,1 +1,7 @@
-[{"title":"qwqwe","text":"qwe","id":"ed24ca28-8371-4ffc-a7fa-3b30fcf0c78d"},{"title":"123","text":"456","id":"23ee4ea4-3cc5-4b58-afd3-7c4df81369c0"},{"title":"qwe","text":"asdf","id":"59ebfd9e-21da-4646-a856-8955bdd04b1c"}]
+[
+    {
+        "title": "Notes will be saved here",
+        "text": "Click the trash can to delete a note",
+        "id": "ed24ca28-8371-4ffc-a7fa-3b30fcf0c78d"
+    }
+]
