@@ -2,7 +2,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const uniqid = require("uniqid");
+const { v4: uuidv4 } = require('uuid');
 
 // Sets up the Express App
 const PORT = process.env.PORT || 3001;
@@ -11,6 +11,7 @@ const app = express();
 // Sets up middleware to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(__dirname));
 
 //GET API - read db.json file and return all saved notes as JSON
 app.get("/api/notes", (req, res) =>
@@ -24,7 +25,7 @@ app.get("/api/notes", (req, res) =>
 //POST API - adds requested note to the notes database
 app.post("/api/notes", (req, res) => {
   const reqNote = req.body;
-  reqNote.id = uniqid();
+  reqNote.id = uuidv4();
   let currentNotes = JSON.parse(fs.readFileSync("./Develop/db/db.json", "utf8"));
   currentNotes.push(reqNote);
   fs.writeFileSync("./Develop/db/db.json", JSON.stringify(currentNotes));
