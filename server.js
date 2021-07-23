@@ -5,7 +5,6 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { v4: uuidv4 } = require("uuid"); //npm library to give unique id's easily
-const database = require("./public/db/db.json");
 
 //======================================================================
 // Housekeeping, setup express server, set port number
