@@ -27,7 +27,7 @@ app.get("/", (req, res) =>
 );
 
 //======================================================================
-// API (/api/notes) GET and POST routes
+// API (/api/notes) GET DELETE and POST routes
 //======================================================================
 app.get("/api/notes", (req, res) => {
   fs.readFile("public/db/db.json", function (err, data) {
@@ -49,8 +49,18 @@ app.post("/api/notes", (req, res) => {
   res.json(notes);
 });
 
+app.delete("/api/notes/:id", (req, res) => {
+  let notes = fs.readFileSync("public/db/db.json");
+  notes = JSON.parse(notes);
+  notes.splice(req.params.id, 1);
+  fs.writeFile("public/db/db.json", JSON.stringify(notes), function (err) {
+    if (err) throw err;
+  });
+  res.json(notes);
+});
+
 //======================================================================
-// Exporess event handler
+// Express event handler
 //======================================================================
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
