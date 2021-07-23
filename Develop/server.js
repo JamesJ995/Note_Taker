@@ -2,8 +2,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-import { v4 as uuidv4 } from 'uuid';
-uuidv4(); // ⇨ '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d'
+const uniqid = require("uniqid");
 
 // Sets up the Express App
 const PORT = process.env.PORT || 3001;
@@ -22,21 +21,14 @@ app.get("/api/notes", (req, res) =>
   })
 );
 
-//POST API - add a new note to the note database
+//POST API - adds requested note to the notes database
 app.post("/api/notes", (req, res) => {
   const reqNote = req.body;
-
-  // Assigned unique id obtained from 'uuid' package
-  reqNote.id = uuidv4();
-
-  // Read data from 'db.json' file
-  let data = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-
-  // Pushed new note in notes file 'db.json'
-  data.push(newNote);
-
-  // Written notes data to 'db.json' file
-  fs.writeFileSync("./db/db.json", JSON.stringify(data));
+  reqNote.id = uniqid();
+  let currentNotes = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+  currentNotes.push(reqNote);
+  fs.writeFileSync("./db/db.json", JSON.stringify(currentNotes));
+  res.json(currentNotes);
 });
 
 //HTML Routes
